@@ -1,0 +1,23 @@
+<h1>My User Profile</h1>
+<p>
+  Below is the information returned from the OIDC <a href="https://developer.okta.com/docs/api/resources/oidc#userinfo">/userinfo</a> endpoint
+  ...obtained with the access_token (now stored in local storage) returned during the
+  <a href="https://developer.okta.com/authentication-guide/implementing-authentication/implicit">Implicit Flow</a>
+</p>
+<p>
+  This route is protected, which will ensure that this page cannot be accessed until you have authenticated.
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Claim</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let claim of claims">
+      <td>{{claim.claim}}</td>
+      <td id="claim-{{claim.claim}}">{{claim.value}}</td>
+    </tr>
+  </tbody>
+</table>

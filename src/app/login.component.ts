@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { OktaAuthService } from './app.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html'
 })
-export class AppComponent {
+export class LoginComponent {
   constructor(public oktaAuth: OktaAuthService) {}
 }
