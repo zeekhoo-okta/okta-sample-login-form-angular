@@ -23,21 +23,14 @@ export class OktaAuthService {
     return !!this.oktaAuth.tokenManager.get('accessToken');
   }
 
-
-// Original function redirects to Okta.
-//  login() {
-//    // Launches the login redirect.
-//    this.oktaAuth.token.getWithRedirect({
-//      responseType: ['id_token', 'token'],
-//      scopes: config.oidc.scope.split(" ")
-//    });
-//  }
   async login() {
-    var txn = await this.oktaAuth.signIn({ username : this.username, password : this.password });
-    if (txn.status === 'SUCCESS') {
-      var sessionToken = txn.sessionToken;
-      console.log('sessionToken:' + sessionToken);
+    var transaction = await this.oktaAuth.signIn({ username : this.username, password : this.password });
+    if (transaction.status === 'SUCCESS') {
+      var sessionToken = transaction.sessionToken;
       if (sessionToken) {
+        // Okta's auth-js does the heavy lifting here. Not only will getWithRedirect make the oauth authorize request,
+        // it will perform token validation upon return of token(s), and throw exception if token is invalid
+        // Here, we request idToken and accessTokens, which are redirected to the redirectUri...the handler is handlerAuthentication(), below
         this.oktaAuth.token.getWithRedirect({
             responseType: ['id_token', 'token'],
             sessionToken: sessionToken,
@@ -45,7 +38,7 @@ export class OktaAuthService {
         });
       }
     } else {
-      throw 'Cannot handle the ' + txn.status + ' status';
+      throw 'Cannot handle the ' + transaction.status + ' status';
     }
   }
 
@@ -60,10 +53,14 @@ export class OktaAuthService {
         this.oktaAuth.tokenManager.add('accessToken', token);
       }
     });
+    if (this.isAuthenticated) {
+      this.router.navigate(['/']);
+    }
   }
 
   async logout() {
     this.oktaAuth.tokenManager.clear();
     await this.oktaAuth.signOut();
+    this.router.navigate(['/']);
   }
 }

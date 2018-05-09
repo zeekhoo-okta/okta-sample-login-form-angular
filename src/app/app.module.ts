@@ -8,12 +8,15 @@ import { FormsModule } from '@angular/forms';
 // Okta Guard and Service
 import { OktaAuthGuard } from './app.guard';
 import { OktaAuthService } from './app.service';
+import { CallbackComponent } from './callback.component';
 
 import { AppComponent } from './app.component';
-import { CallbackComponent } from './callback.component';
-import { ProtectedComponent } from './protected.component';
 
-import { LoginComponent } from './login.component';
+// Custom login page component
+import { LoginComponent } from './login/login.component';
+
+// Example protected page component
+import { ProtectedComponent } from './protected/protected.component';
 
 
 const appRoutes: Routes = [
@@ -22,27 +25,27 @@ const appRoutes: Routes = [
     component: CallbackComponent
   },
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: 'protected',
     component: ProtectedComponent,
     canActivate: [ OktaAuthGuard ]
-  },
-  {
-    path: 'login',
-    component: LoginComponent
   },
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    CallbackComponent,
     ProtectedComponent,
-    LoginComponent
+    LoginComponent,
+    CallbackComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
   ],
   providers: [
     OktaAuthGuard,

@@ -15,9 +15,7 @@ export class OktaAuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.authenticated) { return true; }
 
-    // Redirect to login flow.
-//    this.oktaAuth.login();
-    document.location.href = "/login";
+    this.router.navigate(['/login']);
     return false;
   }
 }

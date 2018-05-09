@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OktaAuthService } from './app.service';
+import { OktaAuthService } from '../app.service';
 
 interface Claim {
   claim: Object,
