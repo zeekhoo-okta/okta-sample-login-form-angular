@@ -2,12 +2,8 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a routerLink="/" class="navbar-brand"><img alt="Angular" src="/assets/angular.svg"></a>
-
-      <!--<button type="button" class="btn btn-default navbar-btn" *ngIf="!oktaAuth.isAuthenticated()" (click)="oktaAuth.login()">Sign In</button>-->
       <button type="button" class="btn btn-default navbar-btn" *ngIf="!oktaAuth.isAuthenticated()" routerLink="/login">Sign In</button>
-
       <button type="button" class="btn btn-default navbar-btn" *ngIf="oktaAuth.isAuthenticated()" (click)="oktaAuth.logout()">Sign Out</button>
-
       <a routerLink="/protected"> Protected </a>
     </div>
   </div>

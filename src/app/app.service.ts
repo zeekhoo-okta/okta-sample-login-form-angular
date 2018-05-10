@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as OktaAuth from '@okta/okta-auth-js';
 
-import config from './.config';
+import config from './.samples.config';
 
 @Injectable()
 export class OktaAuthService {
